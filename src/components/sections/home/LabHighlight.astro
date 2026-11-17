@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import Button from '@/components/ui/Button.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import labImg from '@/assets/images/laboratory.png';
+import labImg from '@/assets/images/laboratory.jpg';
 import { labCatalogue } from '@/data/laboratory';
 import { whatsappHref } from '@/lib/contact';
 const sample = labCatalogue.categories.slice(0, 4);
@@ -50,7 +50,7 @@ const wa = whatsappHref('Hello Star Med, I have a question about a laboratory te
           formats={['avif', 'webp']} fallbackFormat="webp"
           widths={[480, 720, 960, 1200]}
           sizes="(min-width: 1024px) 45vw, 92vw"
-          alt="Illustration of laboratory equipment — a microscope, test tubes, a flask and a test report"
+          alt="Laboratory technician in a white coat examining a sample under a microscope"
           class="h-auto w-full"
         />
       </div>

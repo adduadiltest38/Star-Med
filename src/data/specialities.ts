@@ -1,8 +1,8 @@
 import type { ImageMetadata } from 'astro';
 import type { IconName } from './services';
-import dermatologyImg from '@/assets/images/speciality-dermatology.png';
-import cardiologyImg from '@/assets/images/speciality-cardiology.png';
-import generalImg from '@/assets/images/speciality-general-medicine.png';
+import dermatologyImg from '@/assets/images/speciality-dermatology.jpg';
+import cardiologyImg from '@/assets/images/speciality-cardiology.jpg';
+import generalImg from '@/assets/images/speciality-general-medicine.jpg';
 
 /**
  * Medical specialities. Add new departments here — they appear on the home
@@ -40,7 +40,7 @@ export const specialities: readonly Speciality[] = [
       'Our dermatology department offers consultation for a wide range of skin, hair and nail concerns. A skin specialist can assess your condition and recommend an appropriate plan of care.',
     commonConcerns: ['Skin rashes and allergies', 'Acne and pigmentation', 'Hair and scalp concerns', 'Nail conditions'],
     image: dermatologyImg,
-    imageAlt: 'Illustration representing dermatology care — layered skin cross-section with a soft protective glow',
+    imageAlt: 'Patient receiving a gentle skin-care treatment applied by a practitioner',
     tone: 'teal',
   },
   {
@@ -54,7 +54,7 @@ export const specialities: readonly Speciality[] = [
       'The cardiology department focuses on heart health. Consultation with a heart specialist, together with on-site ECG, helps assess heart activity and guide your next steps.',
     commonConcerns: ['Chest discomfort or palpitations', 'Blood pressure follow-up', 'Heart health check-ups', 'ECG review'],
     image: cardiologyImg,
-    imageAlt: 'Illustration representing cardiology — a heart symbol with an ECG trace',
+    imageAlt: 'Anatomical model of the human heart used to explain heart health',
     tone: 'blue',
   },
   {
@@ -68,7 +68,7 @@ export const specialities: readonly Speciality[] = [
       'General medicine is the foundation of good healthcare. Our doctors help with everyday illnesses, initial assessment of new symptoms and guidance on tests or specialist referral when needed.',
     commonConcerns: ['Fever, cough and common infections', 'New or unexplained symptoms', 'Routine health check-ups', 'Follow-up care'],
     image: generalImg,
-    imageAlt: 'Illustration representing general medicine — a stethoscope and medical clipboard',
+    imageAlt: 'Doctor checking a patient’s blood pressure during a consultation',
     tone: 'green',
   },
 ];

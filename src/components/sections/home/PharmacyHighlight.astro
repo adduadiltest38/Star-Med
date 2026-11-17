@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import { ArrowRight, PackageSearch, FileText, MessageCircle } from 'lucide-react';
 import Button from '@/components/ui/Button.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import pharmacyImg from '@/assets/images/pharmacy.png';
+import pharmacyImg from '@/assets/images/pharmacy.jpg';
 import { whatsappHref } from '@/lib/contact';
 const wa = whatsappHref('Hello Star Med Pharmacy, I would like to check medicine availability.');
 const points = [
@@ -20,7 +20,7 @@ const points = [
           formats={['avif', 'webp']} fallbackFormat="webp"
           widths={[480, 720, 960, 1200]}
           sizes="(min-width: 1024px) 45vw, 92vw"
-          alt="Illustration of a pharmacy — medicine shelves, a large pill bottle with a medical cross, capsules and a prescription"
+          alt="Well-organised pharmacy interior with neatly stocked medicine shelves"
           class="h-auto w-full"
         />
       </div>

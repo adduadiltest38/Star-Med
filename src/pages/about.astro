@@ -6,7 +6,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 import Button from '@/components/ui/Button.astro';
 import Icon from '@/components/ui/Icon.astro';
 import CTABand from '@/components/sections/home/CTABand.astro';
-import clinicImg from '@/assets/images/clinic.png';
+import clinicImg from '@/assets/images/clinic.jpg';
 import { site } from '@/config/site';
 import { services, serviceHref } from '@/data/services';
 import { whyChoose } from '@/data/why-choose';
@@ -31,7 +31,7 @@ const values = [
   <section class="section pt-12" aria-labelledby="story-title">
     <div class="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
       <div class="overflow-hidden rounded-[2rem] shadow-lift" data-img-reveal>
-        <Picture src={clinicImg} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 45vw, 92vw" alt="Illustration of the Star Med Clinic building" class="h-auto w-full" loading="eager" />
+        <Picture src={clinicImg} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 45vw, 92vw" alt="Bright, modern clinic reception and waiting area" class="h-auto w-full" loading="eager" />
       </div>
       <div>
         <SectionHeading id="story-title" eyebrow="Who we are" title="A healthcare destination" highlight="for our community" />

@@ -1,7 +1,8 @@
 /**
- * Renders the SVG illustration sources in design/illustrations/ to high-resolution
- * PNG masters in src/assets/images/. Astro's image pipeline then generates
- * responsive AVIF/WebP variants at build time.
+ * Renders the SVG illustration sources in design/illustrations/ to high-resolution PNGs.
+ *  - og-*.svg      → src/assets/images/ (used for social sharing cards)
+ *  - everything else → design/rendered/ (alternative illustrated artwork; copy into
+ *    src/assets/images/ and update the imports if you prefer illustrations to photos)
  *
  * Usage: node scripts/render-illustrations.mjs [name-filter]
  * Requires Playwright (dev only). Replace the PNGs with real photographs at any time.
@@ -10,11 +11,13 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 // Playwright is resolved from the global install (or add it as a devDependency).
 const { chromium } = require('playwright');
-import { readdir, readFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const SRC = path.resolve('design/illustrations');
-const OUT = path.resolve('src/assets/images');
+const OUT_ASSETS = path.resolve('src/assets/images');
+const OUT_RENDERED = path.resolve('design/rendered');
+await mkdir(OUT_RENDERED, { recursive: true });
 const filter = process.argv[2];
 
 const browser = await chromium.launch();
@@ -29,7 +32,7 @@ for (const file of (await readdir(SRC)).filter((f) => f.endsWith('.svg'))) {
   await page.setContent(
     `<html><head><style>html,body{margin:0;background:transparent}svg{display:block;width:100vw;height:100vh}</style></head><body>${svg}</body></html>`,
   );
-  const out = path.join(OUT, file.replace(/\.svg$/, '.png'));
+  const out = path.join(file.startsWith('og-') ? OUT_ASSETS : OUT_RENDERED, file.replace(/\.svg$/, '.png'));
   await page.screenshot({ path: out, omitBackground: true });
   console.log('rendered', path.relative(process.cwd(), out));
 }

@@ -5,7 +5,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 import CTABand from '@/components/sections/home/CTABand.astro';
-import pharmacyImg from '@/assets/images/pharmacy.png';
+import pharmacyImg from '@/assets/images/pharmacy.jpg';
 import { getService } from '@/data/services';
 import { serviceSchema } from '@/lib/seo';
 import { telHref, whatsappHref } from '@/lib/contact';
@@ -35,7 +35,7 @@ const features = [
   <section class="section pt-10" aria-labelledby="ph-intro">
     <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
       <div class="overflow-hidden rounded-[2rem] shadow-lift" data-img-reveal>
-        <Picture src={pharmacyImg} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 45vw, 92vw" alt="Illustration of the clinic pharmacy with medicine shelves, a pill bottle and a prescription" class="h-auto w-full" loading="eager" />
+        <Picture src={pharmacyImg} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 45vw, 92vw" alt="Well-organised pharmacy interior with neatly stocked medicine shelves" class="h-auto w-full" loading="eager" />
       </div>
       <div>
         <h2 id="ph-intro" class="h-section" data-split>Convenient, reliable pharmacy care</h2>

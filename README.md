@@ -43,7 +43,7 @@ The site never invents clinic facts. Anything unconfirmed is shown as a clearly 
 | Doctors (intentionally empty) | `src/data/doctors.ts` — add only verified doctors |
 | Specialities | `src/data/specialities.ts` |
 | Official logo | `src/components/ui/Logo.astro` (currently a recreated vector mark) |
-| Photographs | `src/assets/images/` (see **Images** below) |
+| Photographs (currently Unsplash stock) | `src/assets/images/` (see **Images** below) |
 
 As soon as a phone / WhatsApp number is added, click-to-call buttons, WhatsApp buttons, the mobile quick-action bar and the form hand-off appear automatically across the site.
 
@@ -153,9 +153,11 @@ Validate after deploying: Google Rich Results Test and Search Console (submit th
 
 All images go through `astro:assets` → responsive **AVIF + WebP** with explicit dimensions (no CLS); below-the-fold images lazy-load; the hero image is eager with `fetchpriority="high"`.
 
-The current images are **illustrations** generated from `design/illustrations/*.svg` because no licensed photography was supplied. To use real photographs, replace the files in `src/assets/images/` **with the same filenames** (any size ≥ 1600 px wide, PNG or JPG — update the import extension if you switch to JPG). Update the alt text in the relevant component/data file.
+The current photos are **temporary open-licensed stock images from Unsplash** (Unsplash License — free for commercial use). Sources are listed in `src/assets/images/CREDITS.md`. People shown are models, not Star Med staff or patients.
 
-To edit and re-render the illustrations:
+To use the clinic's own photographs, replace the files in `src/assets/images/` **keeping the same filenames** (`hero-doctor.jpg` portrait 4:5; others landscape, ≥ 1600 px wide), then update the alt text in the relevant component/data file. Nothing else needs to change.
+
+Alternative illustrated artwork is kept in `design/illustrations/` (SVG). To edit and re-render it:
 
 ```bash
 node scripts/render-illustrations.mjs          # needs Playwright (npm i -D playwright && npx playwright install chromium)
