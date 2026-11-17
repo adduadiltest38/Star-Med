@@ -1,0 +1,124 @@
+---
+import { MapPin, Phone, Mail, MessageCircle, Clock, ArrowUpRight } from 'lucide-react';
+import Logo from '@/components/ui/Logo.astro';
+import SocialIcon from '@/components/ui/SocialIcon.astro';
+import { mainNav, secondaryNav, site } from '@/config/site';
+import { services, serviceHref } from '@/data/services';
+import {
+  addressLines, directionsHref, telHref, mailHref, whatsappHref, defaultWhatsAppMessage, formatTime,
+} from '@/lib/contact';
+
+const year = new Date().getFullYear();
+const wa = whatsappHref(defaultWhatsAppMessage);
+const pending = 'To be updated by the clinic';
+---
+<footer class="relative overflow-hidden bg-brand-950 text-white/80" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-40 -right-32 size-[34rem] rounded-full bg-brand-600/25 blur-3xl"></div>
+    <div class="absolute -bottom-40 -left-20 size-[28rem] rounded-full bg-teal-500/15 blur-3xl"></div>
+  </div>
+
+  <div class="container-x relative pt-20 pb-10">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <a href="/" aria-label={`${site.name} — home`} class="inline-block rounded-xl"><Logo variant="light" /></a>
+        <p class="mt-5 font-display text-xl font-semibold text-white">{site.tagline}</p>
+        <p class="mt-3 max-w-sm text-sm leading-relaxed text-white/70">
+          A polyclinic in Pallikkara bringing consultation, diagnostics and pharmacy together in one convenient location.
+        </p>
+        {
+          site.social.length > 0 ? (
+            <ul class="mt-6 flex gap-2" aria-label="Social media">
+              {site.social.map((s) => (
+                <li>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="grid size-11 place-items-center rounded-full bg-white/10 text-white transition hover:-translate-y-0.5 hover:bg-white/20"
+                    aria-label={`${s.label} (opens in a new tab)`}
+                  >
+                    <SocialIcon name={s.icon} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="mt-6 text-xs text-white/65">Social media links: {pending.toLowerCase()}.</p>
+          )
+        }
+      </div>
+
+      <nav class="lg:col-span-2" aria-labelledby="footer-quick">
+        <h3 id="footer-quick" class="text-sm font-semibold tracking-wider text-white uppercase">Quick links</h3>
+        <ul class="mt-5 space-y-3 text-sm">
+          {
+            [...mainNav, ...secondaryNav].map((l) => (
+              <li><a href={l.href} class="transition-colors hover:text-teal-200">{l.label}</a></li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="lg:col-span-3" aria-labelledby="footer-services">
+        <h3 id="footer-services" class="text-sm font-semibold tracking-wider text-white uppercase">Services</h3>
+        <ul class="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 text-sm lg:grid-cols-1">
+          {
+            services.map((s) => (
+              <li><a href={serviceHref(s)} class="transition-colors hover:text-teal-200">{s.name}</a></li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-3">
+        <h3 class="text-sm font-semibold tracking-wider text-white uppercase">Visit &amp; contact</h3>
+        <address class="mt-5 space-y-4 text-sm not-italic">
+          <a href={directionsHref} target="_blank" rel="noopener noreferrer" class="group flex gap-3">
+            <MapPin className="mt-0.5 size-5 shrink-0 text-teal-300" aria-hidden="true" />
+            <span>
+              {addressLines[0]}<br />{addressLines[1]}
+              <span class="mt-1 flex w-fit items-center gap-1 font-semibold text-teal-200 group-hover:underline">
+                Get directions <ArrowUpRight className="size-3.5" aria-hidden="true" />
+              </span>
+            </span>
+          </a>
+          <p class="flex gap-3">
+            <Phone className="mt-0.5 size-5 shrink-0 text-teal-300" aria-hidden="true" />
+            {telHref ? <a href={telHref} class="hover:text-teal-200">{site.contact.phoneDisplay ?? site.contact.phone}</a> : <span class="text-white/65">Phone: {pending}</span>}
+          </p>
+          <p class="flex gap-3">
+            <MessageCircle className="mt-0.5 size-5 shrink-0 text-teal-300" aria-hidden="true" />
+            {wa ? <a href={wa} target="_blank" rel="noopener noreferrer" class="hover:text-teal-200">Chat on WhatsApp</a> : <span class="text-white/65">WhatsApp: {pending}</span>}
+          </p>
+          <p class="flex gap-3">
+            <Mail className="mt-0.5 size-5 shrink-0 text-teal-300" aria-hidden="true" />
+            {mailHref ? <a href={mailHref} class="hover:text-teal-200">{site.contact.email}</a> : <span class="text-white/65">Email: {pending}</span>}
+          </p>
+          <div class="flex gap-3">
+            <Clock className="mt-0.5 size-5 shrink-0 text-teal-300" aria-hidden="true" />
+            {
+              site.openingHours.length > 0 ? (
+                <ul class="space-y-1">
+                  {site.openingHours.map((h) => (
+                    <li>{h.days.map((d) => d.slice(0, 3)).join(', ')}: {formatTime(h.opens)} – {formatTime(h.closes)}</li>
+                  ))}
+                </ul>
+              ) : (
+                <span class="text-white/65">Opening hours: {pending}</span>
+              )
+            }
+          </div>
+        </address>
+      </div>
+    </div>
+
+    <div class="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/65 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {site.legalName}. All rights reserved.</p>
+      <p class="max-w-xl sm:text-right">
+        Information on this website is general and not a substitute for medical advice. In a medical emergency, call <a href="tel:112" class="font-semibold text-white underline-offset-2 hover:underline">112</a>.
+      </p>
+    </div>
+  </div>
+</footer>

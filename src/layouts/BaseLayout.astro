@@ -1,0 +1,85 @@
+---
+import '@/styles/global.css';
+import { Font, getImage } from 'astro:assets';
+import SEO, { type SEOProps } from '@/components/seo/SEO.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import MobileActionBar from '@/components/layout/MobileActionBar.astro';
+import { site } from '@/config/site';
+import { medicalClinicSchema, websiteSchema, webPageSchema, pageTitle, normalizePath } from '@/lib/seo';
+import clinicImg from '@/assets/images/clinic.png';
+
+type Props = SEOProps & {
+  /** Extra JSON-LD objects for this page. */
+  schema?: unknown[];
+  /** schema.org WebPage subtype, e.g. AboutPage, ContactPage, MedicalWebPage. */
+  pageType?: string;
+};
+
+const { schema = [], pageType, ...seo } = Astro.props;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const pageUrl = new URL(normalizePath(Astro.url.pathname), siteUrl).toString();
+const logoUrl = new URL('/logo.png', siteUrl).toString();
+const clinicImage = await getImage({ src: clinicImg, width: 1200, format: 'jpg' });
+
+const jsonLd = [
+  medicalClinicSchema(siteUrl, logoUrl, new URL(clinicImage.src, siteUrl).toString()),
+  websiteSchema(siteUrl),
+  webPageSchema(siteUrl, {
+    url: pageUrl,
+    name: pageTitle(seo.title),
+    description: seo.description,
+    ...(pageType && { type: pageType }),
+  }),
+  ...schema,
+];
+---
+<!doctype html>
+<html lang={site.language} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1659c4" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <script is:inline>
+      // Hide animated elements only when JS runs AND the user allows motion.
+      // Failsafe: if animations do not start within 2.5s, reveal everything.
+      (function () {
+        var d = document.documentElement;
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          d.classList.add('motion-ok');
+          setTimeout(function () {
+            if (!window.__starmedAnim) d.classList.remove('motion-ok');
+          }, 2500);
+        }
+      })();
+    </script>
+    <Font cssVariable="--font-jakarta" preload />
+    <Font cssVariable="--font-inter" preload />
+    <SEO {...seo} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <JsonLd data={jsonLd} />
+  </head>
+  <body class="min-h-dvh overflow-x-clip pb-24 md:pb-0">
+    <Header />
+    <main id="main" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Footer />
+    <MobileActionBar />
+
+    <script>
+      // Animations are loaded lazily and only when motion is allowed,
+      // so reduced-motion users download no animation code at all.
+      if (document.documentElement.classList.contains('motion-ok')) {
+        import('@/lib/animations').then(({ initAnimations }) => initAnimations());
+      }
+    </script>
+  </body>
+</html>

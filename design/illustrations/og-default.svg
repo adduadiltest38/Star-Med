@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1260" width="2400" height="1260">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0E3E8C"/><stop offset="0.6" stop-color="#1659C4"/><stop offset="1" stop-color="#0D8285"/></linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2470E0"/><stop offset="1" stop-color="#13A3A3"/></linearGradient>
+  </defs>
+  <rect width="2400" height="1260" fill="url(#bg)"/>
+  <circle cx="2050" cy="250" r="420" fill="#fff" opacity="0.06"/>
+  <circle cx="2150" cy="1100" r="300" fill="#fff" opacity="0.05"/>
+  <path d="M0 980 H700 L780 840 L880 1140 L980 700 L1080 1060 L1160 980 H2400" fill="none" stroke="#fff" stroke-opacity="0.16" stroke-width="14" stroke-linejoin="round"/>
+  <g transform="translate(160 200)">
+    <rect width="240" height="240" rx="64" fill="#fff"/>
+    <g transform="translate(120 120)">
+      <path d="M-22 -86 h44 a10 10 0 0 1 10 10 v54 h54 a10 10 0 0 1 10 10 v44 a10 10 0 0 1 -10 10 h-54 v54 a10 10 0 0 1 -10 10 h-44 a10 10 0 0 1 -10 -10 v-54 h-54 a10 10 0 0 1 -10 -10 v-44 a10 10 0 0 1 10 -10 h54 v-54 a10 10 0 0 1 10 -10z" fill="url(#mark)"/>
+      <path d="M0 -26 L7.6 -10.5 L24.7 -8 L12.4 4 L15.3 21 L0 13 L-15.3 21 L-12.4 4 L-24.7 -8 L-7.6 -10.5Z" fill="#fff"/>
+    </g>
+  </g>
+  <text x="160" y="620" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="150" font-weight="800" fill="#fff" letter-spacing="-3">Star Med Clinic</text>
+  <text x="166" y="720" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="58" font-weight="500" fill="#CDF5F2">Committed to your health, Always</text>
+  <rect x="160" y="820" width="1180" height="110" rx="55" fill="#fff" fill-opacity="0.12"/>
+  <text x="220" y="893" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="500" fill="#fff">Opp. Hanafi Masjid, Mouvval, Pallikkara 671316</text>
+</svg>

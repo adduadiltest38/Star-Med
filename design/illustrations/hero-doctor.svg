@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" width="1000" height="1200">
+  <defs>
+    <linearGradient id="arch" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2470E0"/>
+      <stop offset="0.55" stop-color="#1A8FD0"/>
+      <stop offset="1" stop-color="#13A3A3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAF1F9"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C08260"/>
+      <stop offset="1" stop-color="#A96C4C"/>
+    </linearGradient>
+    <clipPath id="archClip"><path d="M100 1200V540a400 400 0 0 1 800 0v660z"/></clipPath>
+  </defs>
+    <circle cx="860" cy="210" r="120" fill="#CDF5F2" opacity="0.7"/>
+  <circle cx="120" cy="330" r="70" fill="#D9E8FF"/>
+  <path d="M100 1200V540a400 400 0 0 1 800 0v660z" fill="url(#arch)"/>
+  <g clip-path="url(#archClip)">
+    <rect width="1000" height="1200" fill="url(#glow)"/>
+    <circle cx="500" cy="560" r="330" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-width="2"/>
+    <circle cx="500" cy="560" r="260" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="2"/>
+    <path d="M100 720 h150 l30 -60 l40 130 l36 -190 l34 120 h510" fill="none" stroke="#fff" stroke-opacity="0.22" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- neck -->
+    <path d="M456 720h88v140c0 20-96 20-96 0z" fill="#A4684A"/>
+    <path d="M456 790c30 22 58 22 88 0v-40h-88z" fill="#8F5A3F" opacity="0.55"/>
+    <!-- coat -->
+    <path d="M150 1210c10-220 100-320 230-352l120-22 120 22c130 32 220 132 230 352z" fill="url(#coat)"/>
+    <path d="M418 846l82 150 82-150-44-8-38 30-38-30z" fill="#10686C"/>
+    <path d="M446 840l54 40 54-40" fill="none" stroke="#0D5458" stroke-width="4"/>
+    <path d="M366 858l66-14 68 160-46 44z" fill="#E3ECF6"/>
+    <path d="M634 858l-66-14-68 160 46 44z" fill="#E3ECF6"/>
+    <path d="M500 1004v206" stroke="#D3DFEC" stroke-width="4"/>
+    <circle cx="520" cy="1080" r="7" fill="#C9D7E7"/>
+    <circle cx="520" cy="1150" r="7" fill="#C9D7E7"/>
+    <!-- pocket + badge -->
+    <rect x="270" y="1030" width="120" height="96" rx="12" fill="none" stroke="#D3DFEC" stroke-width="4"/>
+    <rect x="296" y="1000" width="12" height="60" rx="6" fill="#1659C4"/>
+    <rect x="318" y="1008" width="10" height="52" rx="5" fill="#22A365"/>
+    <rect x="286" y="950" width="100" height="40" rx="10" fill="#D9E8FF"/>
+    <path d="M300 970h14M307 963v14" stroke="#1659C4" stroke-width="4" stroke-linecap="round"/>
+    <rect x="324" y="964" width="48" height="5" rx="2.5" fill="#84B3FA"/>
+    <rect x="324" y="974" width="32" height="5" rx="2.5" fill="#B5D2FF"/>
+    <!-- stethoscope -->
+    <path d="M430 846c-14 70-16 150 30 214 22 30 64 30 86 0" fill="none" stroke="#2B3A55" stroke-width="12" stroke-linecap="round"/>
+    <path d="M570 846c14 90 40 150 64 196" fill="none" stroke="#2B3A55" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="644" cy="1074" r="34" fill="#B8C7D8" stroke="#2B3A55" stroke-width="10"/>
+    <circle cx="644" cy="1074" r="14" fill="#E9EFF6"/>
+    <!-- head -->
+    <g transform="translate(500 652) scale(0.92) translate(-500 -590)">
+    <ellipse cx="384" cy="612" rx="22" ry="34" fill="#A96C4C"/>
+    <ellipse cx="616" cy="612" rx="22" ry="34" fill="#A96C4C"/>
+    <ellipse cx="500" cy="590" rx="118" ry="140" fill="url(#skin)"/>
+    <path d="M378 596c-16-120 46-176 128-176 92 0 140 58 122 176-10-56-40-92-96-104-60-12-112 6-138 52-8 16-14 34-16 52z" fill="#1E1A2B"/>
+    <path d="M430 470c40-30 110-34 160-4" fill="none" stroke="#3A3350" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+    </g>
+  </g>
+  <!-- floating plus marks -->
+  <g fill="#22A365">
+    <rect x="840" y="560" width="16" height="56" rx="8"/><rect x="820" y="580" width="56" height="16" rx="8"/>
+  </g>
+  <g fill="#4C8CF0" opacity="0.8">
+    <rect x="128" y="820" width="12" height="40" rx="6"/><rect x="114" y="834" width="40" height="12" rx="6"/>
+  </g>
+  <circle cx="900" cy="900" r="10" fill="#2DBFBD"/>
+  <circle cx="80" cy="560" r="8" fill="#22A365"/>
+</svg>

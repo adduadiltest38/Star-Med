@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/home/Hero.astro';
+import AboutIntro from '@/components/sections/home/AboutIntro.astro';
+import ServicesGrid from '@/components/sections/home/ServicesGrid.astro';
+import SpecialitiesSection from '@/components/sections/home/SpecialitiesSection.astro';
+import WhyChoose from '@/components/sections/home/WhyChoose.astro';
+import LabHighlight from '@/components/sections/home/LabHighlight.astro';
+import PharmacyHighlight from '@/components/sections/home/PharmacyHighlight.astro';
+import CTABand from '@/components/sections/home/CTABand.astro';
+import LocationSection from '@/components/sections/home/LocationSection.astro';
+import { site } from '@/config/site';
+---
+<BaseLayout
+  title={`${site.name} — Medical Clinic in Pallikkara | Lab, Pharmacy & Specialists`}
+  description="Star Med Clinic (Star Med Polyclinic), opposite Hanafi Masjid, Mouvval, Pallikkara. Doctor consultation, skin and heart specialists, laboratory, pharmacy and ECG in one place."
+>
+  <Hero />
+  <AboutIntro />
+  <ServicesGrid />
+  <SpecialitiesSection />
+  <WhyChoose />
+  <LabHighlight />
+  <PharmacyHighlight />
+  <CTABand />
+  <LocationSection />
+</BaseLayout>

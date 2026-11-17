@@ -1,0 +1,35 @@
+---
+/** Thumb-friendly quick actions pinned to the bottom of the screen on phones. */
+import { Phone, Navigation, CalendarCheck } from 'lucide-react';
+import SocialIcon from '@/components/ui/SocialIcon.astro';
+import { telHref, whatsappHref, directionsHref, defaultWhatsAppMessage } from '@/lib/contact';
+const wa = whatsappHref(defaultWhatsAppMessage);
+const item =
+  'flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 text-[0.7rem] font-semibold text-ink-soft transition-colors active:bg-brand-50 tap-target';
+---
+<nav
+  aria-label="Quick actions"
+  class="fixed inset-x-3 bottom-3 z-40 flex gap-1 rounded-3xl border border-line/80 bg-white/90 p-1.5 shadow-lift backdrop-blur-xl md:hidden"
+  style="padding-bottom: max(0.375rem, env(safe-area-inset-bottom));"
+>
+  {
+    telHref && (
+      <a href={telHref} class={item}>
+        <Phone className="size-5 text-brand-600" aria-hidden="true" /> Call
+      </a>
+    )
+  }
+  {
+    wa && (
+      <a href={wa} target="_blank" rel="noopener noreferrer" class={item}>
+        <SocialIcon name="whatsapp" class="size-5 text-[#128C4B]" /> WhatsApp
+      </a>
+    )
+  }
+  <a href={directionsHref} target="_blank" rel="noopener noreferrer" class={item}>
+    <Navigation className="size-5 text-teal-600" aria-hidden="true" /> Directions
+  </a>
+  <a href="/contact#enquiry" class="flex flex-[1.4] items-center justify-center gap-2 rounded-2xl bg-brand-600 px-3 text-sm font-semibold text-white shadow-glow tap-target">
+    <CalendarCheck className="size-5" aria-hidden="true" /> Enquire
+  </a>
+</nav>

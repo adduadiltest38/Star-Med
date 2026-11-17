@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'light' | 'outline-light' | 'whatsapp';
+type Size = 'md' | 'lg' | 'sm';
+
+type Props = Omit<HTMLAttributes<'a'>, 'class'> & {
+  href: string;
+  variant?: Variant;
+  size?: Size;
+  external?: boolean;
+  class?: string;
+};
+
+const { href, variant = 'primary', size = 'md', external = false, class: className = '', ...rest } = Astro.props;
+
+const base =
+  'group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,color] duration-300 ease-[var(--ease-out-expo)] tap-target focus-visible:outline-offset-4 active:scale-[0.98]';
+
+const sizes: Record<Size, string> = {
+  sm: 'h-10 px-4 text-sm',
+  md: 'h-12 px-6 text-[0.95rem]',
+  lg: 'h-14 px-7 text-base sm:px-8',
+};
+
+const variants: Record<Variant, string> = {
+  primary:
+    'bg-brand-600 text-white shadow-glow hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-[0_16px_36px_-12px_rgb(22_89_196/0.7)]',
+  secondary:
+    'border border-line bg-white text-ink shadow-soft hover:-translate-y-0.5 hover:border-brand-200 hover:text-brand-700 hover:shadow-card',
+  ghost: 'text-brand-700 hover:bg-brand-50',
+  light: 'bg-white text-brand-800 shadow-soft hover:-translate-y-0.5 hover:shadow-lift',
+  'outline-light': 'border border-white/40 bg-white/10 text-white backdrop-blur hover:-translate-y-0.5 hover:bg-white/20',
+  whatsapp: 'bg-[#128C4B] text-white shadow-soft hover:-translate-y-0.5 hover:bg-[#0f7a41]',
+};
+
+const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+<a href={href} class:list={[base, sizes[size], variants[variant], className]} data-magnetic {...externalProps} {...rest}>
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full"
+  ></span>
+  <slot />
+  {external && <span class="sr-only">(opens in a new tab)</span>}
+</a>

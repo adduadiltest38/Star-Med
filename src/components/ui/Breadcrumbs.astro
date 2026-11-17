@@ -1,0 +1,28 @@
+---
+import { ChevronRight, House } from 'lucide-react';
+import type { Crumb } from '@/lib/seo';
+interface Props { items: readonly Crumb[]; class?: string }
+const { items, class: className = '' } = Astro.props;
+---
+<nav aria-label="Breadcrumb" class={className}>
+  <ol class="flex flex-wrap items-center gap-1.5 text-sm text-muted">
+    {
+      items.map((c, i) => {
+        const last = i === items.length - 1;
+        return (
+          <li class="flex items-center gap-1.5">
+            {i > 0 && <ChevronRight className="size-3.5 text-brand-300" aria-hidden="true" />}
+            {last ? (
+              <span aria-current="page" class="font-medium text-ink">{c.name}</span>
+            ) : (
+              <a href={c.href} class="inline-flex items-center gap-1 rounded transition-colors hover:text-brand-700">
+                {i === 0 && <House className="size-3.5" aria-hidden="true" />}
+                {c.name}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+
+/* ──────────────────────────────────────────────────────────────────────────
+   STAR MED DESIGN SYSTEM
+   Brand: healthcare blue (primary) · teal (technology & trust) · green (wellness)
+   Text: deep navy · Surfaces: white + very light blue
+   ────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-50: #eef5ff;
+  --color-brand-100: #d9e8ff;
+  --color-brand-200: #b5d2ff;
+  --color-brand-300: #84b3fa;
+  --color-brand-400: #4c8cf0;
+  --color-brand-500: #2470e0;
+  --color-brand-600: #1659c4;
+  --color-brand-700: #13479e;
+  --color-brand-800: #143d80;
+  --color-brand-900: #142f5e;
+  --color-brand-950: #0b1d3e;
+
+  --color-teal-50: #ebfbfa;
+  --color-teal-100: #cdf5f2;
+  --color-teal-200: #9eeae5;
+  --color-teal-300: #63d8d3;
+  --color-teal-400: #2dbfbd;
+  --color-teal-500: #13a3a3;
+  --color-teal-600: #0d8285;
+  --color-teal-700: #10686c;
+  --color-teal-800: #135357;
+  --color-teal-900: #14454a;
+
+  --color-green-50: #eefbf3;
+  --color-green-100: #d5f5e1;
+  --color-green-200: #aee9c7;
+  --color-green-300: #77d7a5;
+  --color-green-400: #45be80;
+  --color-green-500: #22a365;
+  --color-green-600: #168351;
+  --color-green-700: #146943;
+  --color-green-800: #145338;
+  --color-green-900: #12452f;
+
+  --color-ink: #0b1b36;
+  --color-ink-soft: #3b4a63;
+  --color-muted: #5a6880;
+  --color-surface: #f4f8fc;
+  --color-surface-2: #eaf2fb;
+  --color-line: #dbe5f1;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+  --radius-4xl: 2.25rem;
+
+  --shadow-soft: 0 1px 2px rgb(11 27 54 / 0.04), 0 8px 24px -8px rgb(11 27 54 / 0.08);
+  --shadow-card: 0 1px 2px rgb(11 27 54 / 0.04), 0 18px 40px -18px rgb(20 61 128 / 0.22);
+  --shadow-lift: 0 2px 4px rgb(11 27 54 / 0.05), 0 28px 60px -20px rgb(20 61 128 / 0.32);
+  --shadow-glow: 0 10px 30px -10px rgb(36 112 224 / 0.55);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s var(--ease-out-expo) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.6; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { @apply bg-brand-100 text-brand-900; }
+
+  :focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-24 lg:py-32;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white/80 px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-wide text-brand-700 backdrop-blur;
+  }
+  .eyebrow-dot {
+    @apply relative inline-flex size-2 rounded-full bg-green-500;
+  }
+  .h-display {
+    @apply font-display text-[2.5rem] leading-[1.05] font-extrabold tracking-tight sm:text-6xl lg:text-7xl;
+  }
+  .h-section {
+    @apply font-display text-3xl leading-tight font-bold tracking-tight sm:text-4xl lg:text-[2.75rem];
+  }
+  .lead {
+    @apply text-lg leading-relaxed text-ink-soft sm:text-xl;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-teal-500 bg-clip-text text-transparent;
+  }
+  .card {
+    @apply rounded-3xl border border-line/70 bg-white shadow-card;
+  }
+  .glass {
+    @apply border border-white/60 bg-white/75 shadow-card backdrop-blur-xl;
+  }
+  .prose-clinic {
+    @apply space-y-5 text-[1.0625rem] leading-relaxed text-ink-soft;
+  }
+  .prose-clinic h2 { @apply mt-10 text-2xl font-bold; }
+  .prose-clinic strong { @apply font-semibold text-ink; }
+
+  /* Decorative backgrounds */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(22 89 196 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(22 89 196 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .bg-mesh {
+    background:
+      radial-gradient(60% 50% at 85% 10%, rgb(45 191 189 / 0.18), transparent 70%),
+      radial-gradient(50% 50% at 10% 20%, rgb(36 112 224 / 0.14), transparent 70%),
+      radial-gradient(40% 40% at 50% 100%, rgb(69 190 128 / 0.12), transparent 70%),
+      var(--color-surface);
+  }
+}
+
+@layer utilities {
+  .tap-target { min-height: 44px; min-width: 44px; }
+}
+
+/* ── Motion: elements are only hidden when JS + motion are both available ── */
+html.motion-ok [data-reveal],
+html.motion-ok [data-stagger] > *,
+html.motion-ok [data-hero] {
+  opacity: 0;
+}
+html.motion-ok [data-split] .split-word > span,
+html.motion-ok [data-hero-split] .split-word > span {
+  display: inline-block;
+  transform: translateY(105%);
+}
+.text-gradient .split-word > span {
+  background-image: linear-gradient(to right, var(--color-brand-600), var(--color-brand-500), var(--color-teal-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

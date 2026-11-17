@@ -1,0 +1,31 @@
+---
+import { ArrowRight } from 'lucide-react';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import ServiceCard from '@/components/ui/ServiceCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { services } from '@/data/services';
+interface Props { showAllLink?: boolean }
+const { showAllLink = true } = Astro.props;
+---
+<section id="services" class="section relative bg-surface" aria-labelledby="services-title">
+  <div aria-hidden="true" class="bg-grid pointer-events-none absolute inset-0 opacity-60"></div>
+  <div class="container-x relative">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        id="services-title"
+        eyebrow="Medical services"
+        title="Care for every step,"
+        highlight="under one roof"
+        intro="From your first consultation to tests and medicines, our services are designed to work together for you."
+      />
+      {showAllLink && (
+        <div data-reveal class="shrink-0">
+          <Button href="/services" variant="secondary">All services <ArrowRight className="size-4" aria-hidden="true" /></Button>
+        </div>
+      )}
+    </div>
+    <ul class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger="0.07">
+      {services.map((s) => <li><ServiceCard service={s} /></li>)}
+    </ul>
+  </div>
+</section>

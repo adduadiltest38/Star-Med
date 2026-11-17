@@ -1,0 +1,43 @@
+---
+import type { IconName } from '@/data/services';
+import {
+  Activity, Ambulance, BedSingle, ClipboardList, Clock, FlaskConical, HandHeart, HeartPulse,
+  Hospital, HousePlus, MapPin, Microscope, Pill, PillBottle, ShieldCheck, Stethoscope,
+  Syringe, TestTubes, UserRoundCheck, UsersRound, Sparkles, BriefcaseMedical,
+} from 'lucide-react';
+
+interface Props {
+  name: IconName;
+  class?: string;
+  strokeWidth?: number;
+}
+const { name, class: className = 'size-6', strokeWidth = 1.75 } = Astro.props;
+
+const map = {
+  lab: FlaskConical,
+  pharmacy: Pill,
+  stethoscope: Stethoscope,
+  specialist: UserRoundCheck,
+  ecg: Activity,
+  casualty: Ambulance,
+  observation: BedSingle,
+  procedures: Syringe,
+  hospital: Hospital,
+  homecare: HousePlus,
+  skin: Sparkles,
+  heart: HeartPulse,
+  medicine: BriefcaseMedical,
+  shield: ShieldCheck,
+  location: MapPin,
+  'hand-heart': HandHeart,
+  clipboard: ClipboardList,
+  'pill-bottle': PillBottle,
+  'test-tubes': TestTubes,
+  microscope: Microscope,
+  clock: Clock,
+  users: UsersRound,
+} satisfies Record<IconName, unknown>;
+
+const Cmp = map[name];
+---
+<Cmp className={className} strokeWidth={strokeWidth} aria-hidden="true" />

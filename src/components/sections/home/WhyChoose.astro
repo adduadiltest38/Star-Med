@@ -1,0 +1,36 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { whyChoose } from '@/data/why-choose';
+---
+<section class="relative overflow-hidden bg-brand-950 py-24 text-white sm:py-28 lg:py-32" aria-labelledby="why-title">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-32 left-1/3 size-[40rem] rounded-full bg-brand-600/30 blur-3xl" data-parallax="0.12"></div>
+    <div class="absolute -right-40 bottom-0 size-[30rem] rounded-full bg-teal-500/20 blur-3xl"></div>
+    <svg class="absolute inset-x-0 bottom-16 w-full opacity-15" viewBox="0 0 1440 140" preserveAspectRatio="none" fill="none">
+      <path data-draw d="M0 70h560l34-48 44 104 52-130 44 96 32-22h674" stroke="url(#why-g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <defs><linearGradient id="why-g" x1="0" x2="1"><stop stop-color="#4C8CF0" /><stop offset="1" stop-color="#2DBFBD" /></linearGradient></defs>
+    </svg>
+  </div>
+  <div class="container-x relative grid gap-14 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <p class="eyebrow border-white/15 bg-white/10 text-teal-100" data-reveal><span class="eyebrow-dot" aria-hidden="true"></span> Why choose Star Med</p>
+      <h2 id="why-title" class="h-section mt-5 text-white" data-split>Healthcare that fits around your life</h2>
+      <p class="mt-5 text-lg leading-relaxed text-white/75" data-reveal>
+        We bring the essentials of good care together in one welcoming place — so you spend less time travelling between appointments and more time feeling better.
+      </p>
+    </div>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:col-span-7" data-stagger="0.08">
+      {
+        whyChoose.map((w, i) => (
+          <li class:list={['group rounded-3xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur transition-colors duration-500 hover:bg-white/[0.1]', i === whyChoose.length - 1 && whyChoose.length % 2 === 1 && 'sm:col-span-2']}>
+            <span class="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-teal-500 text-white shadow-glow">
+              <Icon name={w.icon} class="size-6" />
+            </span>
+            <h3 class="mt-5 text-lg font-bold text-white">{w.title}</h3>
+            <p class="mt-2 leading-relaxed text-white/70">{w.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
