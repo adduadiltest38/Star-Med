@@ -1,0 +1,25 @@
+---
+import { ArrowRight, Home } from 'lucide-react';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { mainNav } from '@/config/site';
+---
+<BaseLayout title="Page not found" description="The page you’re looking for could not be found." noindex>
+  <section class="relative isolate grid min-h-[80vh] place-items-center overflow-hidden bg-mesh px-4 pt-32 pb-20 text-center">
+    <div aria-hidden="true" class="bg-grid absolute inset-0 -z-10"></div>
+    <div class="max-w-xl">
+      <p class="font-display text-8xl font-extrabold text-gradient sm:text-9xl" data-hero="1">404</p>
+      <h1 class="mt-4 text-3xl font-bold sm:text-4xl" data-hero="2">We couldn’t find that page</h1>
+      <p class="lead mt-4" data-hero="3">The link may be broken or the page may have moved. Here are some helpful places to go instead.</p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row" data-hero="4">
+        <Button href="/"><Home className="size-4" aria-hidden="true" /> Back to home</Button>
+        <Button href="/contact" variant="secondary">Contact the clinic <ArrowRight className="size-4" aria-hidden="true" /></Button>
+      </div>
+      <nav aria-label="Popular pages" class="mt-10" data-hero="5">
+        <ul class="flex flex-wrap justify-center gap-2">
+          {mainNav.slice(1).map((l) => <li><a href={l.href} class="inline-flex h-10 items-center rounded-full border border-line bg-white px-4 text-sm font-medium text-ink-soft hover:text-brand-700">{l.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { ArrowRight, Navigation } from 'lucide-react';
+import Button from '@/components/ui/Button.astro';
+import { directionsHref } from '@/lib/contact';
+interface Props { title?: string; text?: string }
+const {
+  title = 'Your Health Journey Starts Here.',
+  text = 'Have a question, need a test or want to see a doctor? Reach out to Star Med — we’re here to help you take the next step.',
+} = Astro.props;
+---
+<section class="relative px-3 py-10 sm:px-6 sm:py-16" aria-labelledby="cta-title">
+  <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2.25rem] bg-gradient-to-br from-brand-700 via-brand-600 to-teal-600 px-6 py-16 text-center shadow-lift sm:px-12 sm:py-20 lg:py-24" data-reveal>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <div class="absolute -top-24 -left-24 size-80 rounded-full border border-white/15"></div>
+      <div class="absolute -top-10 -left-10 size-52 rounded-full border border-white/10"></div>
+      <div class="absolute -right-20 -bottom-28 size-96 rounded-full bg-teal-400/30 blur-3xl"></div>
+      <svg class="absolute top-10 right-12 size-10 text-white/25" data-float="12" viewBox="0 0 24 24"><path fill="currentColor" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" /></svg>
+      <svg class="absolute bottom-10 left-[12%] size-6 text-green-300/60" data-float="8" viewBox="0 0 24 24"><path fill="currentColor" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" /></svg>
+    </div>
+    <div class="relative mx-auto max-w-3xl">
+      <h2 id="cta-title" class="font-display text-4xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl" data-split>{title}</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/85">{text}</p>
+      <div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+        <Button href="/contact" variant="light" size="lg">Contact Us <ArrowRight className="size-4" aria-hidden="true" /></Button>
+        <Button href={directionsHref} variant="outline-light" size="lg" external><Navigation className="size-4" aria-hidden="true" /> Get Directions</Button>
+      </div>
+    </div>
+  </div>
+</section>

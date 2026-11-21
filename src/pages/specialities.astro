@@ -1,0 +1,83 @@
+---
+import { Picture } from 'astro:assets';
+import { ArrowRight, CheckCircle2, Info } from 'lucide-react';
+import PageLayout from '@/layouts/PageLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Notice from '@/components/ui/Notice.astro';
+import CTABand from '@/components/sections/home/CTABand.astro';
+import { specialities, upcomingSpecialities } from '@/data/specialities';
+import { doctors } from '@/data/doctors';
+---
+<PageLayout
+  title="Specialities — Skin Specialist & Heart Specialist in Pallikkara"
+  description="Specialist departments at Star Med Clinic, Pallikkara: Dermatology (skin specialist), Cardiology (heart specialist) and General Medicine. Contact the clinic to confirm availability."
+  heading="Specialist care,"
+  highlight="closer to home"
+  eyebrow="Specialities"
+  intro="Dedicated departments for skin and heart health, alongside general medicine — with more specialities to be added over time."
+  breadcrumbs={[{ name: 'Specialities', href: '/specialities' }]}
+  pageType="MedicalWebPage"
+>
+  <div class="container-x pt-4">
+    <nav aria-label="Jump to speciality" class="flex flex-wrap gap-2" data-reveal>
+      {specialities.map((s) => (
+        <a href={`#${s.slug}`} class="inline-flex h-11 items-center gap-2 rounded-full border border-line bg-white px-4 text-sm font-semibold text-ink-soft shadow-soft transition hover:border-brand-200 hover:text-brand-700">
+          <Icon name={s.icon} class="size-4 text-brand-600" /> {s.name}
+        </a>
+      ))}
+    </nav>
+    <Notice tone="info" class="mt-6 max-w-3xl">
+      Specialist consultation days and availability are confirmed by the clinic. Please contact us before your visit.
+    </Notice>
+  </div>
+
+  {
+    specialities.map((s, i) => {
+      const docs = doctors.filter((d) => d.speciality === s.slug);
+      return (
+        <section id={s.slug} class:list={['section scroll-mt-24', i % 2 === 1 && 'bg-surface']} aria-labelledby={`${s.slug}-title`}>
+          <div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+            <div class:list={['overflow-hidden rounded-[2rem] shadow-lift', i % 2 === 1 && 'lg:order-2']} data-img-reveal>
+              <Picture src={s.image} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 960, 1200]} sizes="(min-width: 1024px) 45vw, 92vw" alt={s.imageAlt} class="h-auto w-full" loading={i === 0 ? 'eager' : 'lazy'} />
+            </div>
+            <div>
+              <p class="eyebrow" data-reveal><span class="eyebrow-dot" aria-hidden="true" />{s.commonName}</p>
+              <h2 id={`${s.slug}-title`} class="h-section mt-5" data-split>{s.name}</h2>
+              <p class="lead mt-5" data-reveal>{s.description}</p>
+              <h3 class="mt-8 text-sm font-semibold tracking-wider text-teal-700 uppercase" data-reveal>Common reasons to consult</h3>
+              <ul class="mt-4 grid gap-2.5 sm:grid-cols-2" data-stagger>
+                {s.commonConcerns.map((c) => (
+                  <li class="flex items-start gap-2.5 text-ink-soft"><CheckCircle2 className="mt-0.5 size-5 shrink-0 text-teal-600" aria-hidden="true" />{c}</li>
+                ))}
+              </ul>
+              <p class="mt-6 flex items-start gap-2 text-xs text-muted" data-reveal>
+                <Info className="mt-px size-3.5 shrink-0" aria-hidden="true" />
+                General information only — your doctor will advise on your specific situation.
+              </p>
+              {docs.length > 0 && (
+                <p class="mt-4 text-sm text-ink-soft">Consultants: {docs.map((d) => d.name).join(', ')} — <a href="/doctors" class="font-semibold text-brand-700 hover:underline">view team</a></p>
+              )}
+              <div class="mt-8" data-reveal>
+                <Button href={`/contact?service=specialist-consultation#enquiry`}>Enquire about {s.name} <ArrowRight className="size-4" aria-hidden="true" /></Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="pb-8" aria-labelledby="more-spec">
+    <div class="container-x">
+      <div class="rounded-3xl border-2 border-dashed border-brand-100 bg-brand-50/40 p-8 text-center sm:p-12" data-reveal>
+        <h2 id="more-spec" class="text-2xl font-bold">More specialities coming</h2>
+        <p class="mx-auto mt-3 max-w-xl text-ink-soft">
+          {upcomingSpecialities.length > 0 ? `Planned: ${upcomingSpecialities.join(', ')}.` : 'Additional specialist departments will be added over time.'} Looking for a specific specialist? Ask us — we’ll let you know what’s available.
+        </p>
+        <div class="mt-6"><Button href="/contact?type=general#enquiry" variant="secondary">Ask about a speciality</Button></div>
+      </div>
+    </div>
+  </section>
+  <CTABand />
+</PageLayout>

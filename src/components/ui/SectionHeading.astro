@@ -1,0 +1,29 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  /** Highlighted (gradient) part of the title, appended after `title`. */
+  highlight?: string;
+  intro?: string;
+  align?: 'left' | 'center';
+  as?: 'h1' | 'h2';
+  id?: string;
+  class?: string;
+}
+const { eyebrow, title, highlight, intro, align = 'left', as: Tag = 'h2', id, class: className = '' } = Astro.props;
+---
+<div class:list={['max-w-3xl', align === 'center' && 'mx-auto text-center', className]}>
+  {
+    eyebrow && (
+      <p class="eyebrow mb-5" data-reveal>
+        <span class="eyebrow-dot" aria-hidden="true" />
+        {eyebrow}
+      </p>
+    )
+  }
+  <Tag id={id} class="h-section" data-split>
+    {title}{highlight && <> <span class="text-gradient">{highlight}</span></>}
+  </Tag>
+  {intro && <p class:list={['lead mt-5', align === 'center' && 'mx-auto max-w-2xl']} data-reveal>{intro}</p>}
+  <slot />
+</div>

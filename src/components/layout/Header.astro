@@ -1,0 +1,228 @@
+---
+import { Menu, X, ArrowRight, Phone, MapPin } from 'lucide-react';
+import Logo from '@/components/ui/Logo.astro';
+import { mainNav, secondaryNav, site } from '@/config/site';
+import { telHref, directionsHref, addressLines } from '@/lib/contact';
+import { normalizePath } from '@/lib/seo';
+
+const current = normalizePath(Astro.url.pathname);
+const isActive = (href: string) => (href === '/' ? current === '/' : current === href || current.startsWith(`${href}/`));
+---
+<a
+  href="#main"
+  class="sr-only z-[100] rounded-full bg-brand-700 px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+>
+  Skip to main content
+</a>
+
+<header
+  id="site-header"
+  data-header
+  class="group/header fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color,backdrop-filter] duration-500 data-[scrolled=true]:border-b data-[scrolled=true]:border-line/60 data-[scrolled=true]:bg-white/80 data-[scrolled=true]:shadow-[0_10px_30px_-20px_rgb(11_27_54/0.35)] data-[scrolled=true]:backdrop-blur-xl"
+>
+  <div class="container-x flex h-[4.5rem] items-center justify-between gap-4 transition-[height] duration-500 group-data-[scrolled=true]/header:h-16 lg:h-20">
+    <a href="/" class="rounded-xl" aria-label={`${site.name} — home`}>
+      <Logo />
+    </a>
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1 rounded-full border border-line/70 bg-white/70 p-1.5 shadow-soft backdrop-blur">
+        {
+          mainNav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="relative block rounded-full px-4 py-2 text-[0.92rem] font-medium text-ink-soft transition-colors duration-300 hover:bg-brand-50 hover:text-brand-700 aria-[current=page]:bg-brand-600 aria-[current=page]:text-white aria-[current=page]:shadow-glow"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      {
+        telHref && (
+          <a
+            href={telHref}
+            class="hidden size-11 place-items-center rounded-full border border-line bg-white text-brand-700 shadow-soft transition hover:-translate-y-0.5 hover:border-brand-200 sm:grid"
+            aria-label={`Call ${site.name}`}
+          >
+            <Phone className="size-[1.1rem]" aria-hidden="true" />
+          </a>
+        )
+      }
+      <a
+        href="/contact#enquiry"
+        class="group/cta hidden h-11 items-center gap-2 rounded-full bg-brand-600 pr-2 pl-5 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-brand-700 sm:inline-flex"
+      >
+        Book Appointment
+        <span class="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-300 group-hover/cta:translate-x-0.5">
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </span>
+      </a>
+      <button
+        type="button"
+        data-menu-open
+        class="grid size-11 place-items-center rounded-full border border-line bg-white text-ink shadow-soft transition hover:border-brand-200 lg:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Menu className="size-5" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile navigation (dialog) -->
+<div
+  id="mobile-menu"
+  data-menu
+  data-open="false"
+  class="pointer-events-none fixed inset-0 z-[60] lg:hidden data-[open=true]:pointer-events-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+  inert
+>
+  <div
+    data-menu-backdrop
+    class="absolute inset-0 bg-brand-950/40 opacity-0 backdrop-blur-sm transition-opacity duration-500 [[data-open=true]_&]:opacity-100"
+  ></div>
+  <div
+    class="absolute inset-x-3 top-3 bottom-3 flex origin-top-right scale-95 flex-col overflow-y-auto rounded-[2rem] bg-white p-5 opacity-0 shadow-lift transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] sm:left-auto sm:w-[26rem] [[data-open=true]_&]:scale-100 [[data-open=true]_&]:opacity-100"
+  >
+    <div class="flex items-center justify-between">
+      <a href="/" aria-label={`${site.name} — home`}><Logo /></a>
+      <button
+        type="button"
+        data-menu-close
+        class="grid size-11 place-items-center rounded-full bg-surface text-ink transition hover:bg-brand-50"
+        aria-label="Close menu"
+      >
+        <X className="size-5" aria-hidden="true" />
+      </button>
+    </div>
+
+    <nav aria-label="Mobile" class="mt-8">
+      <ul class="space-y-1">
+        {
+          [...mainNav, ...secondaryNav].map((item, i) => (
+            <li
+              class="translate-y-3 opacity-0 transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] [[data-open=true]_&]:translate-y-0 [[data-open=true]_&]:opacity-100"
+              style={`transition-delay:${80 + i * 45}ms`}
+            >
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class="flex items-center justify-between rounded-2xl px-4 py-3.5 font-display text-xl font-semibold text-ink transition-colors hover:bg-brand-50 aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700"
+              >
+                {item.label}
+                <ArrowRight className="size-5 text-brand-400" aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="mt-auto space-y-3 pt-8">
+      <a
+        href="/contact#enquiry"
+        class="flex h-14 items-center justify-center gap-2 rounded-full bg-brand-600 font-semibold text-white shadow-glow"
+      >
+        Book Appointment <ArrowRight className="size-4" aria-hidden="true" />
+      </a>
+      <a
+        href={directionsHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-start gap-3 rounded-2xl bg-surface p-4 text-sm text-ink-soft"
+      >
+        <MapPin className="mt-0.5 size-5 shrink-0 text-teal-600" aria-hidden="true" />
+        <span>{addressLines[0]} {addressLines[1]}<span class="mt-1 block font-semibold text-brand-700">Get directions</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+  const backdrop = document.querySelector<HTMLElement>('[data-menu-backdrop]');
+
+  // Sticky header background transition
+  if (header) {
+    let ticking = false;
+    const update = () => {
+      header.dataset.scrolled = String(window.scrollY > 12);
+      ticking = false;
+    };
+    update();
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  // Accessible mobile menu
+  if (menu && openBtn && closeBtn) {
+    let lastFocus: HTMLElement | null = null;
+    const focusables = () =>
+      Array.from(menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+
+    const setOpen = (open: boolean) => {
+      menu.dataset.open = String(open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      window.dispatchEvent(new CustomEvent('menu:toggle', { detail: { open } }));
+      if (open) {
+        menu.removeAttribute('inert');
+        lastFocus = document.activeElement as HTMLElement | null;
+        requestAnimationFrame(() => closeBtn.focus());
+      } else {
+        menu.setAttribute('inert', '');
+        lastFocus?.focus();
+      }
+    };
+
+    openBtn.addEventListener('click', () => setOpen(true));
+    closeBtn.addEventListener('click', () => setOpen(false));
+    backdrop?.addEventListener('click', () => setOpen(false));
+    menu.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+    document.addEventListener('keydown', (e) => {
+      if (menu.dataset.open !== 'true') return;
+      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Tab') {
+        const els = focusables();
+        const first = els[0];
+        const last = els[els.length - 1];
+        if (!first || !last) return;
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+      if (e.matches && menu.dataset.open === 'true') setOpen(false);
+    });
+  }
+</script>

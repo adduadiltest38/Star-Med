@@ -1,0 +1,28 @@
+---
+import { Plus } from 'lucide-react';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import SpecialityCard from '@/components/ui/SpecialityCard.astro';
+import { specialities, upcomingSpecialities } from '@/data/specialities';
+---
+<section class="section relative" aria-labelledby="specialities-title">
+  <div class="container-x">
+    <SectionHeading
+      id="specialities-title"
+      align="center"
+      eyebrow="Specialities"
+      title="Specialist care,"
+      highlight="closer to home"
+      intro="Dedicated departments for skin and heart health, alongside general medicine. Specialist availability varies — please contact the clinic to confirm."
+    />
+    <ul class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger="0.1">
+      {specialities.map((s) => <li><SpecialityCard speciality={s} /></li>)}
+    </ul>
+    <div class="mt-6 flex flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-brand-100 bg-brand-50/40 p-6 text-center sm:flex-row sm:text-left" data-reveal>
+      <span class="grid size-11 place-items-center rounded-full bg-white text-brand-600 shadow-soft"><Plus className="size-5" aria-hidden="true" /></span>
+      <p class="text-ink-soft">
+        {upcomingSpecialities.length > 0 ? <>Coming soon: <strong class="text-ink">{upcomingSpecialities.join(', ')}</strong>.</> : <>More specialist departments will be added over time.</>}
+        <a href="/contact" class="ml-1 font-semibold text-brand-700 underline-offset-4 hover:underline">Ask about a speciality</a>
+      </p>
+    </div>
+  </div>
+</section>

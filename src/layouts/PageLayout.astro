@@ -1,0 +1,42 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import { breadcrumbSchema, type Crumb } from '@/lib/seo';
+import type { SEOProps } from '@/components/seo/SEO.astro';
+
+type Props = SEOProps & {
+  /** Visible H1 */
+  heading: string;
+  /** Optional gradient-highlighted part of the H1 */
+  highlight?: string;
+  eyebrow?: string;
+  intro?: string;
+  breadcrumbs: readonly Crumb[];
+  schema?: unknown[];
+  pageType?: string;
+};
+
+const { heading, highlight, eyebrow, intro, breadcrumbs, schema = [], pageType, ...seo } = Astro.props;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const crumbs: Crumb[] = [{ name: 'Home', href: '/' }, ...breadcrumbs];
+---
+<BaseLayout {...seo} schema={[breadcrumbSchema(siteUrl, crumbs), ...schema]} {...(pageType && { pageType })}>
+  <section class="relative isolate overflow-hidden bg-mesh pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-44 lg:pb-24">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+      <div class="bg-grid absolute inset-0"></div>
+      <svg class="absolute top-[34%] right-[8%] hidden size-8 text-green-400/70 sm:block" data-float="12" viewBox="0 0 24 24"><path fill="currentColor" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" /></svg>
+      <svg class="absolute right-[22%] bottom-[18%] hidden size-5 text-brand-300 sm:block" data-float="8" viewBox="0 0 24 24"><path fill="currentColor" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" /></svg>
+      <svg class="absolute inset-x-0 bottom-0 w-full text-white" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="currentColor"><path d="M0 60V30C240 0 480 0 720 20s480 40 720 10v30z" /></svg>
+    </div>
+    <div class="container-x">
+      <div data-hero="1"><Breadcrumbs items={crumbs} /></div>
+      {eyebrow && <p class="eyebrow mt-8" data-hero="2"><span class="eyebrow-dot" aria-hidden="true"></span>{eyebrow}</p>}
+      <h1 class="mt-5 max-w-4xl font-display text-[2.4rem] leading-[1.08] font-extrabold tracking-tight sm:text-5xl lg:text-6xl" data-hero="3">
+        {heading}{highlight && <> <span class="text-gradient">{highlight}</span></>}
+      </h1>
+      {intro && <p class="lead mt-6 max-w-2xl" data-hero="4">{intro}</p>}
+      <slot name="hero-extra" />
+    </div>
+  </section>
+  <slot />
+</BaseLayout>

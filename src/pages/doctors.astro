@@ -1,0 +1,91 @@
+---
+import { Picture } from 'astro:assets';
+import { CalendarClock, UserRound, Stethoscope, ArrowRight } from 'lucide-react';
+import PageLayout from '@/layouts/PageLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import CTABand from '@/components/sections/home/CTABand.astro';
+import { doctors } from '@/data/doctors';
+import { specialities } from '@/data/specialities';
+import { site } from '@/config/site';
+
+const specName = (slug: string) => specialities.find((s) => s.slug === slug)?.name ?? slug;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const physicianSchema = doctors.map((d) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Physician',
+  name: d.name,
+  medicalSpecialty: specialities.find((s) => s.slug === d.speciality)?.schemaSpecialty,
+  worksFor: { '@id': `${new URL('/', siteUrl).toString()}#clinic` },
+}));
+---
+<PageLayout
+  title="Our Doctors & Medical Team — Star Med Clinic, Pallikkara"
+  description="Meet the medical team at Star Med Clinic, Pallikkara. Doctor consultation in general medicine, dermatology and cardiology — contact the clinic for current consultation schedules."
+  heading="Our doctors &"
+  highlight="medical team"
+  eyebrow="Medical team"
+  intro="Our doctors, nurses, laboratory and pharmacy staff work together to give you attentive, coordinated care."
+  breadcrumbs={[{ name: 'Our Doctors', href: '/doctors' }]}
+  schema={physicianSchema}
+>
+  <section class="section pt-10" aria-labelledby="team-title">
+    <div class="container-x">
+      <h2 id="team-title" class="sr-only">Doctors</h2>
+      {
+        doctors.length > 0 ? (
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-stagger>
+            {doctors.map((d) => (
+              <li class="card overflow-hidden">
+                <div class="aspect-[4/3] bg-surface-2">
+                  {d.photo ? (
+                    <Picture src={d.photo} formats={['avif', 'webp']} fallbackFormat="webp" widths={[400, 640]} sizes="(min-width:1024px) 380px, 92vw" alt={d.photoAlt ?? `Portrait of ${d.name}`} class="h-full w-full object-cover" />
+                  ) : (
+                    <div class="grid h-full place-items-center text-brand-200"><UserRound className="size-24" aria-hidden="true" /></div>
+                  )}
+                </div>
+                <div class="p-6">
+                  <p class="text-xs font-semibold tracking-wider text-teal-700 uppercase">{specName(d.speciality)}</p>
+                  <h3 class="mt-2 text-xl font-bold">{d.name}</h3>
+                  <p class="mt-1 text-sm text-ink-soft">{d.qualifications}</p>
+                  <p class="mt-1 text-sm text-muted">{d.role}</p>
+                  {d.registrationNo && <p class="mt-1 text-xs text-muted">Reg. No: {d.registrationNo}</p>}
+                  {d.schedule && d.schedule.length > 0 && (
+                    <ul class="mt-4 space-y-1.5 border-t border-line pt-4 text-sm text-ink-soft">
+                      {d.schedule.map((s) => <li class="flex gap-2"><CalendarClock className="size-4 text-brand-600" aria-hidden="true" />{s.days}: {s.time}</li>)}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="relative overflow-hidden rounded-[2rem] border border-line/70 bg-gradient-to-br from-white to-surface p-8 shadow-card sm:p-12" data-reveal>
+            <div class="grid items-center gap-10 lg:grid-cols-5">
+              <div class="lg:col-span-3">
+                <span class="grid size-14 place-items-center rounded-2xl bg-brand-50 text-brand-600"><Stethoscope className="size-7" aria-hidden="true" /></span>
+                <h3 class="mt-6 text-2xl font-bold sm:text-3xl">Doctor profiles will be published soon</h3>
+                <p class="mt-4 max-w-xl leading-relaxed text-ink-soft">
+                  We’re preparing verified profiles of our medical team, including qualifications and consultation schedules. Until then, please contact {site.name} to find out which doctors and specialists are available on the day you plan to visit.
+                </p>
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/contact?type=general#enquiry">Check doctor availability <ArrowRight className="size-4" aria-hidden="true" /></Button>
+                  <Button href="/specialities" variant="secondary">View specialities</Button>
+                </div>
+              </div>
+              <ul class="grid gap-3 lg:col-span-2" aria-label="Departments">
+                {specialities.map((s) => (
+                  <li class="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-soft">
+                    <span class="grid size-11 place-items-center rounded-xl bg-teal-50 text-teal-600"><Icon name={s.icon} class="size-5" /></span>
+                    <span><span class="block font-semibold text-ink">{s.name}</span><span class="text-sm text-muted">Consultant profile to be added</span></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+  <CTABand />
+</PageLayout>

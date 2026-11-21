@@ -1,0 +1,74 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import ServiceCard from '@/components/ui/ServiceCard.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import CTABand from '@/components/sections/home/CTABand.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { services } from '@/data/services';
+import { specialities } from '@/data/specialities';
+
+const journey = [
+  { step: '01', title: 'Consult', body: 'Start with a general or specialist consultation.', icon: 'stethoscope' as const },
+  { step: '02', title: 'Test', body: 'Laboratory tests and ECG, as advised by your doctor.', icon: 'test-tubes' as const },
+  { step: '03', title: 'Collect', body: 'Pick up prescribed medicines at our pharmacy.', icon: 'pill-bottle' as const },
+];
+---
+<PageLayout
+  title="Medical Services in Pallikkara — Consultation, Lab, Pharmacy & ECG"
+  description="Explore medical services at Star Med Clinic, Pallikkara: general and specialist consultation, diagnostic laboratory, pharmacy, ECG, casualty, observation, procedures and home care."
+  heading="Medical services"
+  highlight="under one roof"
+  eyebrow="Our services"
+  intro="From your first consultation to tests and medicines, Star Med brings the essentials of everyday healthcare together in Pallikkara."
+  breadcrumbs={[{ name: 'Services', href: '/services' }]}
+  pageType="CollectionPage"
+>
+  <section class="pb-8" aria-labelledby="journey-title">
+    <div class="container-x">
+      <h2 id="journey-title" class="sr-only">How a visit works</h2>
+      <ol class="grid gap-4 md:grid-cols-3" data-stagger>
+        {
+          journey.map((j) => (
+            <li class="relative flex items-center gap-4 rounded-3xl border border-line/70 bg-white p-5 shadow-soft">
+              <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-teal-500 text-white"><Icon name={j.icon} class="size-6" /></span>
+              <span>
+                <span class="text-xs font-bold tracking-widest text-teal-700">STEP {j.step}</span>
+                <span class="block text-lg font-bold text-ink">{j.title}</span>
+                <span class="block text-sm text-ink-soft">{j.body}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section pt-16" aria-labelledby="all-services-title">
+    <div class="container-x">
+      <SectionHeading id="all-services-title" title="All services" intro="Select a service to learn more. Where availability needs confirming, it’s clearly marked." />
+      <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" data-stagger="0.06">
+        {services.map((s) => <li><ServiceCard service={s} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section bg-surface" aria-labelledby="spec-links-title">
+    <div class="container-x grid items-center gap-10 lg:grid-cols-2">
+      <SectionHeading id="spec-links-title" eyebrow="Specialist departments" title="Looking for a" highlight="specialist?" intro="Consultations are available in the departments below, subject to availability." />
+      <ul class="grid gap-3" data-stagger>
+        {
+          specialities.map((s) => (
+            <li>
+              <a href={`/specialities#${s.slug}`} class="group flex items-center gap-4 rounded-2xl bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:shadow-card">
+                <span class="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-600"><Icon name={s.icon} class="size-6" /></span>
+                <span><span class="block font-bold text-ink">{s.name}</span><span class="text-sm text-muted">{s.commonName}</span></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CTABand />
+</PageLayout>
